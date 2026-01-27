@@ -8,7 +8,7 @@ struct fetched_command{
 	char 	cpar2;
 	int		ipar2;
 }
-
+ //add pointer to fetched command
 
 //var names
 char OpName;
