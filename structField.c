@@ -1,9 +1,10 @@
-struct Var{
-	char x;
+typdef struct Var{
+	char name;
 	int start;
 	int end;
-}
+}Var;
+
 struct varNode{
-	struct	fieldData;
-	struct *fieldNode next;
+	struct	Var;
+	struct *varNode next;
 }
