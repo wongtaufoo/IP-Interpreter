@@ -38,7 +38,10 @@ void fetching_instructions(const char* filename)
 	// if operation is fre or par & only has one parameter
 	if ((strcmp(OpName, Fre) == 0) || (strcmp(OpName, Pra) == 0){
 			fscanf(file, "%c %c", &OpName, &par1);
-			
+			if(strcmp(OpName, Fre)){
+				fetched_command.name = Fre;
+				fetched_command.par1 = par1;
+			}
 
 	// if operation is ass, inc, dec, mal, pri & takes par1 as char and par2 as int
 	if ((strcmp(OpName, Ass) == 0)||(strcmp(OpName, Inc)|| (strcmp(OpName, Dec)||(strcmp(OpName, Mal)||(strcmp(OpName, Pri)){
