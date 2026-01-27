@@ -11,6 +11,8 @@ void Mal(Var *v, char name, int n, int start) {
         Memory[i] = 0;
     }
 }
+//allocate(5)
+//creat(name,Meory) in variables
 
 // Ass x n
 void Ass(Var *v, int n) {
