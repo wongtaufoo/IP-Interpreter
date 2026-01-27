@@ -8,72 +8,72 @@ void Mal(Var *v, char name, int n, int start) {
     v->end = start + n - 1;
     
     for (int i = v->start; i <= v->end; i++) {
-        memory[i] = 0;
+        Memory[i] = 0;
     }
 }
 
 // Ass x n
-void Ass(Variable *v, int n) {
-    memory[v->start] = n;
+void Ass(Var *v, int n) {
+    Memory[v->start] = n;
 }
 
 
 // Inc x n
-void Inc(Variable *v, int n) {
-    memory[v->start + n]++;
+void Inc(Var *v, int n) {
+    Memory[v->start + n]++;
 }
 
 // Dec x n
-void Dec(Variable *v, int n) {
-    memory[v->start + n]--;
+void Dec(Var *v, int n) {
+    Memory[v->start + n]--;
 }
 
 // Pri x n
-void Pri(Variable *v, int n) {
-    printf("%d\n", memory[v->start + n]);
+void Pri(Var *v, int n) {
+    printf("%d\n", Memory[v->start + n]);
 }
 
-void Add(Variable *x, Variable *y) {
-    memory[x->start] = memory[x->start] + memory[y->start];
+void Add(Var *x, Var *y) {
+    Memory[x->start] = Memory[x->start] + Memory[y->start];
 }
 
-void Sub(Variable *x, Variable *y) {
-    memory[x->start] = memory[x->start] - memory[y->start];
+void Sub(Var *x, Var *y) {
+    Memory[x->start] = Memory[x->start] - Memory[y->start];
 }
 
-void Mul(Variable *x, Variable *y) {
-    memory[x->start] = memory[x->start] * memory[y->start];
+void Mul(Var *x, Var *y) {
+    Memory[x->start] = Memory[x->start] * Memory[y->start];
 }
 
 
 // x[i] = (x[i] * y[i]) 
-void And(Variable *x, Variable *y) {
+void And(Var *x, Var *y) {
     int len = x->end - x->start + 1;
     for (int i = 0; i <= len; i++) {
-        memory[x->start + i] = (memory[x->start + i] * memory[y->start + i]) % 2;
+        Memory[x->start + i] = (Memory[x->start + i] * Memory[y->start + i]) % 2;
     }
 }
 
 // x[i] = (x[i] + y[i]) 
-void Xor(Variable *x, Variable *y) {
+void Xor(Var *x, Var *y) {
     int len = x->end - x->start + 1;
     for (int i = 0; i <= len; i++) {
-        memory[x->start + i] = (memory[x->start + i] + memory[y->start + i]) % 2;
+        Memory[x->start + i] = (Memory[x->start + i] + Memory[y->start + i]) % 2;
     }
 }
 
 // Fre x
-void Fre(Variable *v) {
+void Fre(Var *v) {
     
     v->start = -1;
     v->end = -1;
 }
 
 // Pra x
-void Pra(Variable *v) {
+void Pra(Var *v) {
     printf("[");
     for (int i = v->start; i <= v->end; i++) {
-        printf("%d", memory[i]);
+        printf("%d", Memory[i]);
     }
     printf("]\n");
 }
