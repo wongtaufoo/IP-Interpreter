@@ -1,19 +1,15 @@
 #include <stdio.h>
 #include <string.h>
-#include "commands.c"
 
 struct fetched_command{
-	char 	name;
+	char 	OpName;
 	char	par1;
 	char 	cpar2;
-	int		ipar2;
+	int	ipar2;
 }
- //add pointer to fetched command
+struct fetched_command fc;
 
 //var names
-char OpName;
-char par1;
-int par2;
 
 char Ass[] = "Ass"; //char int	2
 char Inc[] = "Inc"; //char int	2
@@ -29,31 +25,55 @@ char Fre[] = "Fre"; //char 1
 char Pra[] = "Pra"; //char 1
 
 
-void fetching_instructions(const char* filename)
-	//opening and reading the files
 
-	FILE* file =fopen(filename, "r");
-	fscanf(file, "%c", &OpName);	//reading first the command
+//opening and reading the files
+FILE* file =fopen(<filename>, "r");
+fscanf(file, "%s", fc.OpName);	//reading first the command
 
-	// if operation is fre or par & only has one parameter
-	if ((strcmp(OpName, Fre) == 0) || (strcmp(OpName, Pra) == 0){
-			fscanf(file, "%c %c", &OpName, &par1);
-			if(strcmp(OpName, Fre)){
-				fetched_command.name = Fre;
-				fetched_command.par1 = par1;
+// if operation is fre or par & only has one parameter
+if ((strcmp(fc.OpName, Fre) == 0) || (strcmp(fc.OpName, Pra) == 0){
+		fscanf(file, "%s %c", fc.OpName fc.par1 );
+		}
+// if operation is ass, inc, dec, mal, pri & takes par1 as char and par2 as int
+if ((strcmp(OpName, Ass) == 0)||(strcmp(OpName, Inc)|| (strcmp(OpName, Dec)||(strcmp(OpName, Mal)||(strcmp(OpName, Pri)){
+		fscanf(file, "%s %c %d", fc.OpName, fc.par1, fc.ipar2);
+
+		/*if (strcmp(OpName, Ass) == 0){
+	       		Ass(par1, par2);
 			}
-
-	// if operation is ass, inc, dec, mal, pri & takes par1 as char and par2 as int
-	if ((strcmp(OpName, Ass) == 0)||(strcmp(OpName, Inc)|| (strcmp(OpName, Dec)||(strcmp(OpName, Mal)||(strcmp(OpName, Pri)){
-			fscanf(file, "%c %c %d", &OpName, &par1, &par2)
-
-	}
-
-	// if operation is add, sub, mul, and, xor & takes par1 and par2 as chars
-	if ((strcmp(OpName, Aff) == 0)||(strcmp(OpName, Sub)|| (strcmp(OpName, Mul)||(strcmp(OpName, And)||(strcmp(OpName, Xor)){
-			fscanf(file, "%c %c %c", &OpName, &par1, &par2)			
-			
-	}
-
-	fclose(file);
+		if (strcmp(OpName, Inc ) == 0){
+	       		Inc(par1, par2);
+			}
+		if (strcmp(OpName, Dec) == 0){
+	       		Mal(par1, par2);
+			}
+		if (strcmp(OpName, Mal) == 0){
+	       		Pri(par1, par2);
+			}i
+		if (strcmp(OpName, Pri) == 0){
+	       		Ass(par1, par2);
+			}*/
 }
+
+// if operation is add, sub, mul, and, xor & takes par1 and par2 as chars
+if ((strcmp(OpName, Aff) == 0)||(strcmp(OpName, Sub)|| (strcmp(OpName, Mul)||(strcmp(OpName, And)||(strcmp(OpName, Xor)){
+		fscanf(file, "%s %c %c", fc.OpName, &OpName,fc.par1, fc.cpar2);			
+		
+		/*if (strcmp(OpName, Add) == 0){
+	       		Add(par1, par2);
+			}
+		if (strcmp(OpName, Sub) == 0){
+	       		Sub(par1, par2);
+			}
+		if (strcmp(OpName, Mul) == 0){
+	       		Mul(par1, par2);
+			}
+		if (strcmp(OpName, And) == 0){
+	       		And(par1, par2);
+			}
+		if (strcmp(OpName, Xor) == 0){
+	       		Xor(par1, par2);
+			}*/
+}
+
+fclose(file);
