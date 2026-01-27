@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <"memory.h>
+#include "memory.h"
 
 #define TotalMemory 100
 
@@ -47,8 +47,9 @@ Var * Mal(char c,int n){
 
     avail_start+=n;
     avail-=n;
-
+    
     return x;
 }
+
 
 
