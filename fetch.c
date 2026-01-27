@@ -7,7 +7,7 @@ struct fetched_command{
 	char 	cpar2;
 	int	ipar2;
 }
-struct fetched_command fc;
+struct fetched_command fc; // <- pointer for return
 
 //var names
 
@@ -75,5 +75,5 @@ if ((strcmp(OpName, Aff) == 0)||(strcmp(OpName, Sub)|| (strcmp(OpName, Mul)||(st
 	       		Xor(par1, par2);
 			}*/
 }
-
+return fc;
 fclose(file);
