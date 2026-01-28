@@ -16,7 +16,7 @@ typedef struct Var {
     int start;
     int end;
     struct Var* ptr; 
-    char name;       
+    char name;       //should name include here????????
 } Var;
 
 void init_memory(void);
