@@ -1,5 +1,5 @@
 #include <stdlib.h>
-#include "memory.c"
+#include "memory.c" //memory.h 
 
 
 typedef struct Variable {
@@ -51,7 +51,7 @@ void var_set(char name, int start, int size) {
 }
 
 
-void var_delete(char name) {
+void var_delete(char name) { //return start & end to free in memory 
     Variable *cur = head;
     Variable *prev = NULL;
 
