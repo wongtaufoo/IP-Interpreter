@@ -105,5 +105,16 @@ void free_block(AssignedBlock *b){
 }
 
 int read(int position){
-    if (position>=TotalMemory)}
+    if (position>=TotalMemory){
+        fprintf(stderr,"Wrong Memory Access.n");
+        exit(0);
+    }
+    else{
+        return Memory->m[position];
+    }
 
+void write(int position, int value){
+    if(postion>=0 && position<TotalMemory){
+        Memory->m[position]=value;
+    }
+}
