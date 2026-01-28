@@ -37,7 +37,7 @@ void var_set(char name, int start, int end) {
 }
 
 
-Variable* var_delete(char name) {
+AssignedBlock* var_delete(char name) {
     Variable *cur = head;
     Variable *prev = NULL;
 
@@ -48,9 +48,15 @@ Variable* var_delete(char name) {
             else
                 head = cur->next;
 
-            cur->next = NULL;   
-	    return cur;         
-	}
+            AssignedBlock *b = malloc(sizeof(AssignedBlock));
+            if (!b) exit(0);
+
+            b->start = cur->start;
+            b->end   = cur->end;
+
+            free(cur);
+            return b;         
+	 }
         prev = cur;
         cur = cur->next;
     }
