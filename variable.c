@@ -1,31 +1,16 @@
 #include <stdlib.h>
 
-
-
 typedef struct Variable {
     char name;
     int start;
-    int end;                
+    int end;               
     struct Variable *next;
 } Variable;
 
-
-
 static Variable *head = NULL;
 
+
 void variables_init(void) {
-    head = NULL;
-}
-
-
-
-void variables_free(void) {
-    Variable *cur = head;
-    while (cur) {
-        Variable *next = cur->next;
-        free(cur);
-        cur = next;
-    }
     head = NULL;
 }
 
@@ -40,12 +25,9 @@ Variable* var_get(char name) {
 }
 
 
-
 void var_set(char name, int start, int end) {
     Variable *v = malloc(sizeof(Variable));
-    if (!v) {
-        exit(0);
-    }
+    if (!v) exit(0);
 
     v->name = name;
     v->start = start;
@@ -54,7 +36,8 @@ void var_set(char name, int start, int end) {
     head = v;
 }
 
-void var_delete(char name) {
+
+Variable* var_delete(char name) {
     Variable *cur = head;
     Variable *prev = NULL;
 
@@ -65,11 +48,12 @@ void var_delete(char name) {
             else
                 head = cur->next;
 
-            free(cur);
-            return;
-        }
+            cur->next = NULL;   
+	    return cur;         
+	}
         prev = cur;
         cur = cur->next;
     }
+    return NULL;
 }
 
