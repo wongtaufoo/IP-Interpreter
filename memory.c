@@ -4,28 +4,9 @@
 
 #define TotalMemory 100
 
+Mem* Memory;
 
-typedef struct Mem{
-    int *m;// pointer to heaps
-    int avail_cells;
-    EmptyBlock *head;
-    } Mem;
-
-typedef struct AssignedBlock{ //filled block
-    int start;
-    int end;
-    } AssignedBlock;
-
-typedef struct EmptyBlock{
-    int start;
-    int end;
-    int size=end-start;
-    struct EmptyBlock *next; //pointer to next freeblock
-}
-
-Mem * Memory;
-
-void init_memory{
+void init_memory(void){
 
     Memory = malloc(sizeof(Mem));
 
@@ -58,7 +39,7 @@ void init_memory{
     }
 
 AssignedBlock * allocate(int n){
-    if (n>avail){
+    if (n>Memory->avail_cells){
         return NULL;
     }
     EmptyBlock **prev= &Memory->head;
@@ -72,10 +53,9 @@ AssignedBlock * allocate(int n){
             New->end=New->start+n;
 
             //if empty block larger than needed, block is split and start of empty block updated
-            if (n<size)){
+            if (n<size){
                 current->start+=n;
-            }
-            else{ // perfect fit, current cell is now assigned
+            }else{ // perfect fit, current cell is now assigned
                 *prev=current->next;
                 free(current);
             }
@@ -98,7 +78,7 @@ void free_block(AssignedBlock *b){
 
     newFree->next=Memory->head; //add to beginning of empty block list
     Memory->head=newFree;
-    int size= b->start-b->end
+    int size= b->start-b->end;
     Memory->avail_cells+=size;
 
     free(b);
@@ -109,12 +89,12 @@ int read(int position){
         fprintf(stderr,"Wrong Memory Access.n");
         exit(0);
     }
-    else{
         return Memory->m[position];
-    }
+}
 
 void write(int position, int value){
-    if(postion>=0 && position<TotalMemory){
+    if(position>=0 && position<TotalMemory){
         Memory->m[position]=value;
     }
+    return;
 }
