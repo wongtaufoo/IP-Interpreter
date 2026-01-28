@@ -1,19 +1,22 @@
 #include <stdlib.h>
-#include "memory.c" //memory.h 
+
 
 
 typedef struct Variable {
     char name;
     int start;
-    int size;
+    int end;                
     struct Variable *next;
 } Variable;
+
+
 
 static Variable *head = NULL;
 
 void variables_init(void) {
     head = NULL;
 }
+
 
 
 void variables_free(void) {
@@ -37,21 +40,21 @@ Variable* var_get(char name) {
 }
 
 
-void var_set(char name, int start, int size) {
+
+void var_set(char name, int start, int end) {
     Variable *v = malloc(sizeof(Variable));
     if (!v) {
-         exit(0);
+        exit(0);
     }
 
     v->name = name;
     v->start = start;
-    v->size = size;
+    v->end = end;
     v->next = head;
     head = v;
 }
 
-
-void var_delete(char name) { //return start & end to free in memory 
+void var_delete(char name) {
     Variable *cur = head;
     Variable *prev = NULL;
 
