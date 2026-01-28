@@ -4,4 +4,4 @@
 #include "memory.h"
 #include "fetch.h"
 #include "structField.h"
-#include 
+#include “commands.c"
