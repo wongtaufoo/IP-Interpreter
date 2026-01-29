@@ -1,11 +1,8 @@
+#include <stdio.h>
 #include <stdlib.h>
+#include "memory.h"
+#include "variable.h"
 
-typedef struct Variable {
-    char name;
-    int start;
-    int end;               
-    struct Variable *next;
-} Variable;
 
 static Variable *head = NULL;
 
@@ -21,19 +18,21 @@ Variable* var_get(char name) {
             return cur;
         cur = cur->next;
     }
-    return NULL;
+    return NULL;// variable does not exist
 }
 
 
-void var_set(char name, int start, int end) {
+void var_set(char name, AssignedBlock *b) {
     Variable *v = malloc(sizeof(Variable));
     if (!v) exit(0);
 
     v->name = name;
-    v->start = start;
-    v->end = end;
+    v->start = b->start;
+    v->end = b->end;
     v->next = head;
     head = v;
+
+    free(b);
 }
 
 
@@ -55,11 +54,37 @@ AssignedBlock* var_delete(char name) {
             b->end   = cur->end;
 
             free(cur);
-            return b;         
+            return b;
 	 }
         prev = cur;
         cur = cur->next;
     }
     return NULL;
+}
+
+void variables_free(void) {
+    Variable* cur = head;
+
+    while (cur) {
+        Variable* next = cur->next;
+
+        AssignedBlock* block = malloc(sizeof(AssignedBlock));
+        if (block){
+            block->start = cur->start;
+            block->end = cur->end;
+
+            free_block(block);
+        }
+        free(cur);
+
+        cur = next;
+    }
+
+    head = NULL;
+}
+int variables_count(void) {
+    int c = 0;
+    for (Variable* cur = head; cur; cur = cur->next) c++;
+    return c;
 }
 
