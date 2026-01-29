@@ -13,7 +13,7 @@ int main(void){
 
     const char* filename = "test.txt";
     int n = amount_commands("test.txt");
-    for (int i = 0; i <= n-1; i++) {                 // start at 1
+    for (int i = 0; i <= n-1; i++) {                 // start at 0
         struct fetched_command fc = fetching(filename, i);
         decode(fc);
     }
