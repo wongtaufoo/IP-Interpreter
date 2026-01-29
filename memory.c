@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include "memory.h"
 
-#define TotalMemory 100
 
 Mem* Memory;
 
@@ -26,9 +25,9 @@ void init_memory(void){
     Memory->head= malloc(sizeof(EmptyBlock));
 
     if (Memory->head==NULL){ //fail allocation
-        fprintf(stderr, "Not enough memory.\n");
         free(Memory->m);
         free(Memory);
+        fprintf(stderr, "Not enough memory.\n");
         exit(0);
     }
 
@@ -39,7 +38,7 @@ void init_memory(void){
     }
 
 AssignedBlock * allocate(int n){
-    if (n>Memory->avail_cells || n<=0){
+    if (n>Memory->avail_cells || n<=0 || Memory==NULL){
         return NULL;
     }
     EmptyBlock **prev= &Memory->head;
@@ -49,6 +48,10 @@ AssignedBlock * allocate(int n){
         int size= current->end-current->start;
         if (n<=size){
             AssignedBlock *New = malloc(sizeof(AssignedBlock));
+            if (New==NULL){
+                fprintf(stderr, "Not enough memory.\n");
+                exit(0);
+            }
             New->start= current->start;
             New->end=New->start+n;
 
@@ -74,9 +77,13 @@ AssignedBlock * allocate(int n){
 }
 
 void free_block(AssignedBlock *b){
-    if (b==NULL)return;
+    if (b==NULL||Memory==NULL)return;
 
     EmptyBlock *newFree=malloc(sizeof(EmptyBlock));
+    if (newFree==NULL){
+        fprintf(stderr, "Not enough memory.\n");
+        exit(0);
+    }
     newFree->start=b->start;
     newFree->end=b->end;
 
@@ -89,7 +96,7 @@ void free_block(AssignedBlock *b){
 }
 
 int read_cell(int position){
-    if (position>=TotalMemory){
+    if (position>=TotalMemory||position<0){
         fprintf(stderr,"Wrong Memory Access.\n");
         exit(0);
     }
@@ -97,7 +104,7 @@ int read_cell(int position){
 }
 
 void write_cell(int position, int value){
-    if (position>=TotalMemory){
+    if (position>=TotalMemory||position<0){
         fprintf(stderr,"Wrong Memory Access.\n");
         exit(0);
     }
@@ -106,6 +113,7 @@ void write_cell(int position, int value){
     }
     return;
 }
+
 
 void free_memory(void) {
     if (Memory==NULL) return;
@@ -121,3 +129,4 @@ void free_memory(void) {
     free(Memory);
     Memory = NULL;
 }
+
