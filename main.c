@@ -1,28 +1,24 @@
 #include <stdio.h>
-#include <stdlin.h>
+#include <stdlib.h>
 
 #include "memory.h"
 #include "fetch.h"
-#include "structField.h"
-#include “commands.c"
+#include "commands.h"
+#include "variable.h"
 
-#include "project.h"
-
-int main(){
+int main(void){
     //initial Memory heap + the empty Variable list
     init_memory();      // From memory.c
-    variables_init();   // From variable.c 
-
-    while (1) {
-        struct fetched_command current_fc = fetching(argv[1]);
-        // when reach the end of the input
-        if (current_fc.OpName == NULL){
-          break;
-        }
-        decode(current_fc);
+    variables_init();   // From variable.c
+    const char* filename = "test.txt";
+    int n = amount_commands("test.txt");
+    for (int i = 0; i <= n; i++) {                 // start at 1
+        struct fetched_command fc = fetching(filename, i);
+        decode(fc);
     }
-
     // Free the linked list and the heap memory before exiting
-    variables_free(); 
+    printf("Before free: count=%d\n", variables_count());
+    variables_free();
+    printf("After free:  count=%d\n", variables_count());
     return 0;
 }

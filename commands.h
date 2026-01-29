@@ -1,7 +1,6 @@
 #ifndef COMMANDS
 #define COMMANDS
-
-//decode and run 
+#include "fetch.h"
 void decode(struct fetched_command fc);
 
 #endif

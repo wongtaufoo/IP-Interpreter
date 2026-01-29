@@ -1,7 +1,7 @@
 #ifndef MEMORY
 #define MEMORY
 
-#define TOTAL_MEMORY 100
+#define TotalMemory 100
 
 //list of empty blocks
 typedef struct EmptyBlock{
