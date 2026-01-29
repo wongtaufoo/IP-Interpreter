@@ -1,6 +1,0 @@
-
-all:
-	gcc -Wall -pedantic -g commands.c fetch.c main.c memory.c variable.c  -o interpreter
-
-
-
