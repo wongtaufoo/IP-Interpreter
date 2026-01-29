@@ -18,7 +18,7 @@ void variables_init(void);
 Variable* var_get(char name);
 
 //assigning variable
-void var_set(char name, AssignedBlock* block);
+void var_set(char name, AssignedBlock* b);
 
 //removing variable
 AssignedBlock* var_delete(char name);
