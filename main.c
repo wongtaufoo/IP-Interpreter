@@ -10,15 +10,14 @@ int main(void){
     //initial Memory heap + the empty Variable list
     init_memory();      // From memory.c
     variables_init();   // From variable.c
+
     const char* filename = "test.txt";
     int n = amount_commands("test.txt");
-    for (int i = 0; i <= n; i++) {                 // start at 1
+    for (int i = 0; i <= n-1; i++) {                 // start at 1
         struct fetched_command fc = fetching(filename, i);
         decode(fc);
     }
     // Free the linked list and the heap memory before exiting
-    printf("Before free: count=%d\n", variables_count());
     variables_free();
-    printf("After free:  count=%d\n", variables_count());
     return 0;
 }
