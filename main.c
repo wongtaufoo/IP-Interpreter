@@ -6,7 +6,11 @@
 #include "commands.h"
 #include "variable.h"
 
-int main(const char* fileName){
+int main(int argc, char* argv[]){   // int argc is the number of arguments passed
+    // char* argv is array of strings
+    if (argc!= 2) return 0;
+
+    const char * fileName = argv[1];
     //initial Memory heap + the empty Variable list
     init_memory();      // From memory.c
     variables_init();   // From variable.c
@@ -18,5 +22,6 @@ int main(const char* fileName){
     }
     // Free the linked list and the heap memory before exiting
     variables_free();
+    free_memory();
     return 0;
 }
