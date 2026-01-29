@@ -38,6 +38,9 @@ int read_cell(int pos);
 // write int into memory cell
 void write_cell(int pos, int val);
 
+//free all cells
+void free_memory(void);
+
 // make memory global for use in other files
 extern Mem* Memory;
 

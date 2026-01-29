@@ -31,6 +31,7 @@ int amount_commands(const char* filename){ //returns the amount of commands, in 
 	while (fgets(line, sizeof(line), file)!=NULL){
 		n++;
 	}
+	fclose(file);
 	return n;
 }
 

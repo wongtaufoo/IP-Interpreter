@@ -14,7 +14,8 @@ void decode(struct fetched_command fc) {
         // Call Mal in memory.c to get space
         AssignedBlock *new_mem = allocate(fc.ipar2);
         if (new_mem==NULL){
-            fprintf(stderr, "Not enough memory.4\n");
+            fprintf(stderr, "Not enough memory.\n");
+            free(new_mem);
             exit(0);
         }
         // Call var_set from variable.c to register the name and range
@@ -23,7 +24,8 @@ void decode(struct fetched_command fc) {
     // Get the primary variable 'x' from the variable tracker
     Variable *x = var_get(fc.par1);
     if (x==NULL){
-        fprintf(stderr, "Try to use a variable that does not exist.1\n");
+        fprintf(stderr, "Try to use a variable that does not exist.\n");
+        exit(0);
     }
 
     // Ass x n
@@ -64,7 +66,7 @@ void decode(struct fetched_command fc) {
             Memory->m[x->start] = Memory->m[x->start] + Memory->m[y->start];
         }
         else {
-            fprintf(stderr,"Try to use a variable that does not exist.2\n");
+            fprintf(stderr,"Try to use a variable that does not exist.\n");
             exit(0);
         }
     }
@@ -75,7 +77,7 @@ void decode(struct fetched_command fc) {
             Memory->m[x->start] = Memory->m[x->start] - Memory->m[y->start];
         }
         else {
-            fprintf(stderr,"Try to use a variable that does not exist.3\n");
+            fprintf(stderr,"Try to use a variable that does not exist.\n");
             exit(0);
         }
     }
@@ -87,7 +89,7 @@ void decode(struct fetched_command fc) {
             Memory->m[x->start] = Memory->m[x->start] * Memory->m[y->start];
         }
         else {
-            fprintf(stderr,"Try to use a variable that does not exist.4\n");
+            fprintf(stderr,"Try to use a variable that does not exist.\n");
             exit(0);
         }
     }
@@ -106,7 +108,7 @@ void decode(struct fetched_command fc) {
             }
         }
         else {
-            fprintf(stderr,"Try to use a variable that does not exist.5\n");
+            fprintf(stderr,"Try to use a variable that does not exist.\n");
             exit(0);
         }
     }
