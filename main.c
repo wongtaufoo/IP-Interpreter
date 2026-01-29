@@ -7,7 +7,7 @@
 #include "variable.h"
 
 int main(int argc, char* argv[]){   // int argc is the number of arguments passed
-    // char* argv is array of strings
+    // char* argv is array of strings of arguments
     if (argc!= 2) return 0;
 
     const char * fileName = argv[1];
