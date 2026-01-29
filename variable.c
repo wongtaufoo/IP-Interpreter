@@ -82,9 +82,5 @@ void variables_free(void) {
 
     head = NULL;
 }
-int variables_count(void) {
-    int c = 0;
-    for (Variable* cur = head; cur; cur = cur->next) c++;
-    return c;
-}
+
 
