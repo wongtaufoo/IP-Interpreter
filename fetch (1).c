@@ -2,6 +2,8 @@
 #include <string.h>
 #include "fetch.h"
 
+struct fetched_command fc;
+
 //var names
 
 char Ass[] = "Ass"; //char int	2
@@ -34,7 +36,7 @@ int amount_commands(const char* filename){ //returns the amount of commands, in 
 
 
 struct fetched_command fetching(const char* filename, int line_number){ //add line number
-    fetched_command fc;
+
 	//opening and reading the files
 
 	FILE* file =fopen(filename, "r");
