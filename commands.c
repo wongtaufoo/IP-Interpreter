@@ -137,7 +137,6 @@ void decode(struct fetched_command fc) {
             exit(0);
         }
         free_block(b);// free from memory
-        printf("free sucess.\n");
 
     }
     // Pra x
