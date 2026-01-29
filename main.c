@@ -7,7 +7,7 @@
 #include "variable.h"
 
 int main(int argc, char* argv[]){   // int argc is the number of arguments passed
-    // char* argv is array of strings of arguments
+    // char* argv is array of strings of arguments => ./interpreter test.txt
     if (argc!= 2) return 0;
 
     const char * fileName = argv[1];
@@ -16,7 +16,7 @@ int main(int argc, char* argv[]){   // int argc is the number of arguments passe
     variables_init();   // From variable.c
 
     int n = amount_commands(fileName);
-    for (int i = 0; i <= n-1; i++) {                 // start at 0
+    for (int i = 0; i < n; i++) {                 // start at 0
         struct fetched_command fc = fetching(fileName, i);
         decode(fc);
     }
