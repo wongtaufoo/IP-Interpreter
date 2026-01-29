@@ -11,14 +11,14 @@ void init_memory(void){
     Memory = malloc(sizeof(Mem));
 
     if (Memory==NULL){ // allocation fail
-        fprintf(stderr, "Not enough memory1.\n");
+        fprintf(stderr, "Not enough memory.\n");
         exit(0);
     }
 
     Memory->m = malloc(TotalMemory*sizeof(int));
 
     if (Memory->m==NULL){ //point to nothing i.e. allocation fail
-        fprintf(stderr, "Not enough memory2.\n");
+        fprintf(stderr, "Not enough memory.\n");
         free(Memory);
         exit(0);
     }
@@ -26,7 +26,7 @@ void init_memory(void){
     Memory->head= malloc(sizeof(EmptyBlock));
 
     if (Memory->head==NULL){ //fail allocation
-        fprintf(stderr, "Not enough memory3.\n");
+        fprintf(stderr, "Not enough memory.\n");
         free(Memory->m);
         free(Memory);
         exit(0);
@@ -105,4 +105,19 @@ void write_cell(int position, int value){
         Memory->m[position]=value;
     }
     return;
+}
+
+void free_memory(void) {
+    if (Memory==NULL) return;
+
+    // free the linked list of empty blocks
+    EmptyBlock *cur = Memory->head;
+    while (cur) {
+        EmptyBlock *next = cur->next;
+        free(cur);
+        cur = next;
+    }
+    free(Memory->m);
+    free(Memory);
+    Memory = NULL;
 }
