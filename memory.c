@@ -11,14 +11,14 @@ void init_memory(void){
     Memory = malloc(sizeof(Mem));
 
     if (Memory==NULL){ // allocation fail
-        fprintf(stderr, "Not enough memory.\n");
+        fprintf(stderr, "Not enough memory1.\n");
         exit(0);
     }
 
     Memory->m = malloc(TotalMemory*sizeof(int));
 
     if (Memory->m==NULL){ //point to nothing i.e. allocation fail
-        fprintf(stderr, "Not enough memory.\n");
+        fprintf(stderr, "Not enough memory2.\n");
         free(Memory);
         exit(0);
     }
@@ -26,7 +26,7 @@ void init_memory(void){
     Memory->head= malloc(sizeof(EmptyBlock));
 
     if (Memory->head==NULL){ //fail allocation
-        fprintf(stderr, "Not enough memory.\n");
+        fprintf(stderr, "Not enough memory3.\n");
         free(Memory->m);
         free(Memory);
         exit(0);
@@ -39,7 +39,7 @@ void init_memory(void){
     }
 
 AssignedBlock * allocate(int n){
-    if (n>Memory->avail_cells){
+    if (n>Memory->avail_cells || n<=0){
         return NULL;
     }
     EmptyBlock **prev= &Memory->head;
@@ -59,6 +59,10 @@ AssignedBlock * allocate(int n){
                 *prev=current->next;
                 free(current);
             }
+            for (int i = New->start; i < New->end; i++) {
+                Memory->m[i] = 0;
+            }
+
             Memory->avail_cells-=n;
             return New;
         }
@@ -78,21 +82,25 @@ void free_block(AssignedBlock *b){
 
     newFree->next=Memory->head; //add to beginning of empty block list
     Memory->head=newFree;
-    int size= b->start-b->end;
+    int size= b->end-b->start;
     Memory->avail_cells+=size;
 
     free(b);
 }
 
-int read(int position){
+int read_cell(int position){
     if (position>=TotalMemory){
-        fprintf(stderr,"Wrong Memory Access.n");
+        fprintf(stderr,"Wrong Memory Access.\n");
         exit(0);
     }
-        return Memory->m[position];
+    return Memory->m[position];
 }
 
-void write(int position, int value){
+void write_cell(int position, int value){
+    if (position>=TotalMemory){
+        fprintf(stderr,"Wrong Memory Access.\n");
+        exit(0);
+    }
     if(position>=0 && position<TotalMemory){
         Memory->m[position]=value;
     }
